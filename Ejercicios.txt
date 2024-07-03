@@ -1,0 +1,118 @@
+
+UT9_TA7:
+
+
+//Pseudocódigo
+
+CuentaPorDistribución(R, u, v)
+begin
+    // R es el arreglo de elementos a ordenar
+    // u es el valor mínimo de las claves
+    // v es el valor máximo de las claves
+
+    //Inicializamos el arreglo Cuenta
+    for i = u to v do
+        Cuenta[i] = 0
+
+    //Contamos las ocurrencias de cada clave en R
+    for j = 1 to N do
+        key = valorNumerico(R[j])
+        Cuenta[key] = Cuenta[key] + 1
+
+    //Modificamos el arreglo Cuenta para que cada posición contenga la suma acumulada de las ocurrencias
+    for i = u + 1 to v do
+        Cuenta[i] = Cuenta[i] + Cuenta[i - 1]
+
+    //Construimos el arreglo de salida
+    for j = N down to 1 do
+        key = valorNumerico(R[j])
+        i = Cuenta[key]
+        S[i] = R[j]
+        Cuenta[key] = i - 1
+end
+
+//obtiene el valor numérico de la clave (primer carácter)
+
+funcion valorNumerico(elemento)
+begin
+    
+    return caracterANumero(elemento[0])
+end
+
+
+R = ['5T', '0C', '5U', '0O', '9!', '1N', '8S', '2R', '6A', '4A', '1G', '5L', '6T', '6I', '7O', '7N']
+u = 0
+v = 9
+N = longitud(R)
+
+Cuenta = arreglo[u..v]
+S = arreglo[1..N]
+
+
+CuentaPorDistribución(R, u, v)
+
+
+
+Ejecución del algoritmo:
+
+Inicializamos el arreglo cuenta:
+
+Cuenta = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Contamos las ocurrencias de cada clave:
+
+R = ['5T', '0C', '5U', '0O', '9!', '1N', '8S', '2R', '6A', '4A', '1G', '5L', '6T', '6I', '7O', '7N']
+Cuenta = [2, 2, 1, 0, 1, 3, 3, 2, 1, 1]
+
+modificamos el arreglo cuenta con las acumulaciónes:
+
+Cuenta = [2, 4, 5, 5, 6, 9, 12, 14, 15, 16]
+
+Construimos el arreglo de salida:
+
+S = ['0C', '0O', '1N', '1G', '2R', '4A', '5T', '5U', '5L', '6A', '6T', '6I', '7O', '7N', '8S', '9!']
+
+
+2)
+Comparaciónes:
+
+Paso 1: 10
+Paso 2: 16
+Paso 3: 9
+Paso 4: 16
+Total comparaciones: 10 + 16 + 9 + 16 = 51
+
+Movimientos:
+
+Paso 1: 10
+Paso 2: 16
+Paso 3: 9
+Paso 4: 16
+
+Total movimientos: 10 + 16 + 9 + 16 = 51
+
+
+3)Consideraciónes en referencia a la estabilidad:
+
+El algoritmo Cuenta por distribución es inherentemente estable.
+
+Esto se debe a la forma en que se construye el array de salida utilizando las posiciones acumuladas en el array de conteo (Cuenta)
+
+
+4)Análisis detallado del orden de tiempo de ejecución:
+
+CuentaPorDistribución
+begin
+    for i = u to v hacer               // O(v - u + 1)
+        Cuenta[i] = 0                  // O(1)
+    for j = 1 a N hacer                // O(N)
+        incrementar Cuenta[Kj]         // O(1)
+    for i = u +1 a v hacer             // O(v - u)
+        Cuenta[i] = Cuenta[i] + Cuenta[i-1] // O(1)
+    for j = N downto 1 hacer           // O(N)
+        i = Cuenta[Kj]                 // O(1)
+        S[i] = R[j]                    // O(1)
+        Cuenta[Kj] = i - 1             // O(1)
+end
+
+Orden de tiempo de ejecución: O(N)
